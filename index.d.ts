@@ -102,6 +102,10 @@ export interface ReactJsonViewProps {
    */
   onEdit?: ((edit: InteractionProps) => false | any) | false;
   /**
+   * When a callback function is passed in,add functionality is enabled.
+   */
+  onFilter?: ((edit:InteractionProps) => any )|false;
+  /**
    * When a callback function is passed in, add functionality is enabled.
    * The callback is invoked before additions are completed.
    * Returning false from onAdd will prevent the change from being made. see: onAdd docs
