@@ -160,7 +160,7 @@ class VariableEditor extends React.PureComponent {
           class="icon-place-holder"
           style={{
             verticalAlign: 'top',
-            display: this.state.hovered ? 'inline-block' : 'none'
+            display: this.state.hovered ? 'inline-block' : 'inline-block'
           }}
         >
           <IconPlaceHolder
