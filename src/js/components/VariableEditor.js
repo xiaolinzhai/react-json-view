@@ -22,7 +22,7 @@ import {
 } from './DataTypes/DataTypes';
 
 //clibboard icon
-import { Edit, CheckCircle, RemoveCircle as Remove } from './icons';
+import { Edit, CheckCircle, RemoveCircle as Remove, Filter } from './icons';
 
 //theme
 import Theme from './../themes/getStyle';
@@ -55,7 +55,8 @@ class VariableEditor extends React.PureComponent {
             onDelete,
             onSelect,
             displayArrayKey,
-            quotesOnKeys
+            quotesOnKeys,
+            onAddFilter
         } = this.props;
         const { editMode } = this.state;
         return (
@@ -144,6 +145,9 @@ class VariableEditor extends React.PureComponent {
                 {onDelete !== false && editMode == false
                     ? this.getRemoveIcon()
                     : null}
+                {onAddFilter !== false && editMode == false
+                ? this.getFilterIcon()
+                : null}
             </div>
         );
     }
@@ -169,10 +173,39 @@ class VariableEditor extends React.PureComponent {
             </div>
         );
     };
+    getFilterIcon = () =>{
+      const { variable, namespace, theme, rjvId } = this.props;
 
-    prepopInput = variable => {
-        if (this.props.onEdit !== false) {
-            const stringifiedValue = stringifyVariable(variable.value);
+      return (
+        <div class='click-to-edit'
+          style={{
+            verticalAlign: "top",
+            display: this.state.hovered ? 'inline-block' : 'none'
+          }}
+        >
+          <Filter class="click-to-edit-icon"
+                  {...Theme(theme, 'editVarIcon')}
+            onClick={() =>{
+
+              dispatcher.dispatch({
+                name: 'VARIABLE_ADD_FILTER',
+                rjvId: rjvId,
+                data: {
+                  name: variable.name,
+                  namespace: namespace,
+                  existing_value: variable.value,
+                  variable_removed: true
+                }
+              });
+            }}
+          />
+        </div>
+      )
+    }
+
+  prepopInput = variable => {
+    if (this.props.onEdit !== false) {
+      const stringifiedValue = stringifyVariable(variable.value);
             const detected = parseInput(stringifiedValue);
             this.setState({
                 editMode: true,

@@ -34,6 +34,10 @@ ReactDom.render(
                     return false;
                 }
             }}
+            onAddFilter={e =>{
+                console.log("add filter",e);
+
+            }}
             onSelect={e => {
                 console.log('select callback', e);
                 console.log(e.namespace);

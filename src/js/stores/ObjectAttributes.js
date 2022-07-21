@@ -61,6 +61,13 @@ class ObjectAttributes extends EventEmitter {
                 this.set(rjvId, 'action', 'new-key-request', data);
                 this.emit('add-key-request-' + rjvId);
                 break;
+            case 'VARIABLE_ADD_FILTER':
+                console.log("VARIABLE_ADD_FILTER")
+                this.set(rjvId,'action','add-filter',{ ...data,
+                    type: 'add-filter'
+                });
+                this.emit('variable-add-filter-' + rjvId );
+                break;
         }
     };
 

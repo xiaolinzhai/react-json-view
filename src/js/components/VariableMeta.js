@@ -5,7 +5,7 @@ import CopyToClipboard from './CopyToClipboard';
 import { toType } from './../helpers/util';
 
 //icons
-import { RemoveCircle as Remove, AddCircle as Add } from './icons';
+import { RemoveCircle as Remove, AddCircle as Add, Filter } from './icons';
 
 //theme
 import Theme from './../themes/getStyle';
@@ -21,6 +21,44 @@ export default class extends React.PureComponent {
             );
         }
     };
+
+    getFilterAttribute = rowHovered => {
+        let { theme, namespace, name, src, rjvId, depth } = this.props;
+
+        return (
+          <span
+            class="click-to-add"
+            style={{
+                verticalAlign: 'top',
+                display: rowHovered ? 'inline-block' : 'none'
+            }}
+          >
+             <Filter class={"click-to-add"}
+                     {...Theme(theme, 'addVarIcon')}
+               onClick={() =>{
+                 const request = {
+                   name: depth > 0 ? name : null,
+                   namespace: namespace.splice(
+                     0,
+                     namespace.length - 1
+                   ),
+                   existing_value: src,
+                   variable_removed: false,
+                   key_name: null
+                 };
+
+                 dispatcher.dispatch({
+                   name: 'VARIABLE_ADD_FILTER',
+                   rjvId: rjvId,
+                   data: request
+                 });
+               }}
+             >
+             </Filter>
+
+          </span>
+        )
+    }
 
     getAddAttribute = rowHovered => {
         const { theme, namespace, name, src, rjvId, depth } = this.props;
@@ -114,7 +152,8 @@ export default class extends React.PureComponent {
             enableClipboard,
             src,
             namespace,
-            rowHovered
+            rowHovered,
+            onAddFilter
         } = this.props;
         return (
             <div
@@ -137,6 +176,9 @@ export default class extends React.PureComponent {
                 {/* copy add/remove icons */}
                 {onAdd !== false ? this.getAddAttribute(rowHovered) : null}
                 {onDelete !== false ? this.getRemoveObject(rowHovered) : null}
+{/*
+                {onAddFilter !== false ? this.getFilterAttribute(rowHovered) : null}
+*/}
             </div>
         );
     };

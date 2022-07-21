@@ -56,7 +56,8 @@ class ReactJsonView extends React.PureComponent {
         style: {},
         validationMessage: 'Validation Error',
         defaultValue: null,
-        displayArrayKey: true
+        displayArrayKey: true,
+        onAddFilter:false,
     };
 
     // will trigger whenever setState() is called, or parent passes in new props.
@@ -124,7 +125,9 @@ class ReactJsonView extends React.PureComponent {
         return {
             reset: this.resetState,
             'variable-update': this.updateSrc,
-            'add-key-request': this.addKeyRequest
+            'add-key-request': this.addKeyRequest,
+            'variable-add-filter' : this.addFilter,
+
         };
     };
     //make sure props are passed in as expected
@@ -197,6 +200,34 @@ class ReactJsonView extends React.PureComponent {
                 />
             </div>
         );
+    }
+
+    addFilter = () =>{
+        const {
+            name,
+            namespace,
+            new_value,
+            existing_value,
+            variable_removed,
+            updated_src,
+            type
+        } = ObjectAttributes.get(this.rjvId,'action','add-filter');
+        const { onAddFilter } = this.props;
+        const { src } = this.state;
+        const on_edit_payload = {
+            existing_src: src,
+            new_value: new_value,
+            updated_src: updated_src,
+            name: name,
+            namespace: namespace,
+            existing_value: existing_value
+        };
+        console.log(type);
+        switch (type){
+            case 'add-filter':
+                onAddFilter(on_edit_payload);
+                break;
+        }
     }
 
     updateSrc = () => {
