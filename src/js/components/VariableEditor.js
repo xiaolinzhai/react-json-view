@@ -177,13 +177,13 @@ class VariableEditor extends React.PureComponent {
       const { variable, namespace, theme, rjvId } = this.props;
 
       return (
-        <div class='click-to-edit'
+        <div class='click-to-filter'
           style={{
             verticalAlign: "top",
             display: this.state.hovered ? 'inline-block' : 'none'
           }}
         >
-          <Filter class="click-to-edit-icon"
+          <Filter class="click-to-filter-icon"
                   {...Theme(theme, 'editVarIcon')}
             onClick={() =>{
 
