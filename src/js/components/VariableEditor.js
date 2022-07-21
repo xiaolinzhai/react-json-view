@@ -199,7 +199,8 @@ class VariableEditor extends React.PureComponent {
         <div class='click-to-filter'
           style={{
             verticalAlign: "top",
-            display: this.state.hovered ? 'inline-block' : 'none'
+            display: this.state.hovered ? 'inline-block' : 'inline-block',
+            opacity: this.state.hovered ? 1 : 0
           }}
         >
           <Filter class="click-to-filter-icon"
