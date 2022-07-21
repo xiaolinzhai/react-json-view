@@ -22,7 +22,7 @@ import {
 } from './DataTypes/DataTypes';
 
 //clibboard icon
-import { Edit, CheckCircle, RemoveCircle as Remove, Filter } from './icons';
+import { Edit, CheckCircle, RemoveCircle as Remove, Filter,IconPlaceHolder } from './icons';
 
 //theme
 import Theme from './../themes/getStyle';
@@ -138,7 +138,7 @@ class VariableEditor extends React.PureComponent {
                         clickCallback={enableClipboard}
                         {...{ theme, namespace: [...namespace, variable.name] }}
                     />
-                ) : null}
+                ) : null }
                 {onEdit !== false && editMode == false
                     ? this.getEditIcon()
                     : null}
@@ -147,9 +147,28 @@ class VariableEditor extends React.PureComponent {
                     : null}
                 {onAddFilter !== false && editMode == false
                 ? this.getFilterIcon()
-                : null}
+                : this.getIconPlaceHolder()}
             </div>
         );
+    }
+
+    getIconPlaceHolder = () =>{
+      const { variable, theme } = this.props;
+
+      return (
+        <div
+          class="icon-place-holder"
+          style={{
+            verticalAlign: 'top',
+            display: this.state.hovered ? 'inline-block' : 'none'
+          }}
+        >
+          <IconPlaceHolder
+            class="click-to-edit-icon"
+            {...Theme(theme, 'editVarIcon')}
+          />
+        </div>
+      );
     }
 
     getEditIcon = () => {

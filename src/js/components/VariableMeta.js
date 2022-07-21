@@ -5,7 +5,7 @@ import CopyToClipboard from './CopyToClipboard';
 import { toType } from './../helpers/util';
 
 //icons
-import { RemoveCircle as Remove, AddCircle as Add, Filter } from './icons';
+import { RemoveCircle as Remove, AddCircle as Add, Filter, IconPlaceHolder } from "./icons";
 
 //theme
 import Theme from './../themes/getStyle';
@@ -144,8 +144,27 @@ export default class extends React.PureComponent {
         );
     };
 
-    render = () => {
-        const {
+  getIconPlaceHolder = () =>{
+    const { variable, theme } = this.props;
+
+    return (
+      <div
+        class="icon-place-holder"
+        style={{
+          verticalAlign: 'top',
+          display: this.state.hovered ? 'inline-block' : 'none'
+        }}
+      >
+        <IconPlaceHolder
+          class="click-to-edit-icon"
+          {...Theme(theme, 'editVarIcon')}
+        />
+      </div>
+    );
+  }
+
+  render = () => {
+    const {
             theme,
             onDelete,
             onAdd,

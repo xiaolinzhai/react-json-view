@@ -287,6 +287,20 @@ export class Filter extends React.PureComponent{
   }
 }
 
+export class IconPlaceHolder extends React.PureComponent{
+  render() {
+    const { props } = this;
+    const { style, ...rest } = props;
+    return (
+      <span {...rest}>
+        <span {...getIconStyle(style)}>
+          &nbsp;
+        </span>
+      </span>
+    )
+  }
+}
+
 function getIconStyle(style) {
     if (!style) {
         style = {};
